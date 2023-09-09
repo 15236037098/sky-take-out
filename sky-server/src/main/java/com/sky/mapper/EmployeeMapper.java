@@ -25,4 +25,12 @@ public interface EmployeeMapper {
 
     /*分页查询*/
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+ /*   @Insert("insert into employee(status) values(#{status})")
+    void insertStatus(Integer status);*/
+    //根据id修改员工信息:好处索引查询
+    void update(Employee employee);
+
+    @Select("select * from employee where id=#{id}")
+    Employee getById(Long id);
 }

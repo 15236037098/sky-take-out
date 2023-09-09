@@ -37,3 +37,8 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+  #alioss:
+    #endpoint: oss-cn-beijing.aliyuncs.com
+    #access-key-id: LTAI5tPeFLzsPPT8gG3LPW64
+    #access-key-secret: U6k1brOZ8gaOIXv3nXbulGTUzy6Pd7
+    #bucket-name: sky-itcast

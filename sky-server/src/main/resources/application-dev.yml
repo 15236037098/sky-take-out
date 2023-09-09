@@ -6,3 +6,8 @@ sky:
     database: sky
     username: root
     password: 123456
+ # alioss:
+   # bucket-name: ${sky.alioss.bucket-name}
+    #endpoint: ${sky.alioss.endpoint}
+    #access-key-secret: ${sky.alioss.access-key-secret}
+    #access-key-id: ${sky.alioss.access-key-id}

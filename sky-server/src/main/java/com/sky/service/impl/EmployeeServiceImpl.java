@@ -51,6 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
+
         //密码比对
         // TODO 后期需要进行md5加密，然后再进行比对
         String md5Password = MyMd5.createMD5(password);
@@ -93,5 +94,30 @@ public class EmployeeServiceImpl implements EmployeeService {
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
         Page<Employee> page =employeeMapper.pageQuery(employeePageQueryDTO);
         return new PageResult(page.getTotal(),page.getResult());
+    }
+    //禁用账号
+    @Override
+    public void disableOrStart(Integer status, Long id) {
+        Employee employee =  Employee.builder()
+                .id(id)
+                .status(status)
+                .build();
+    }
+    //根据id查询用户并修改
+    @Override
+    public Employee getById(Long id) {
+        Employee byIdUser = employeeMapper.getById(id);
+        return byIdUser;
+    }
+    //编辑员工信息
+
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        //把前端传递的数据复制给employee
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.update(employee);
     }
 }
