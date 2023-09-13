@@ -102,6 +102,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .id(id)
                 .status(status)
                 .build();
+        employeeMapper.update(employee);
     }
     //根据id查询用户并修改
     @Override

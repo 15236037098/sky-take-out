@@ -24,9 +24,9 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+
     @Autowired
     private DishMapper dishMapper;
-
     @Override
     public void add(CategoryDTO categoryDTO) {
         Category category = new Category();
@@ -87,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> list(Integer type) {
-        return categoryMapper.list(type);
+    public List<Category> listCategoryService(Integer type) {
+        return categoryMapper.listCategoryMapper(type);
     }
 }

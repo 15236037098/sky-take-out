@@ -60,15 +60,14 @@ public class CategoryController {
         categoryService.deleteById(id);
         return Result.success();
     }
-    /**
-     * 根据类型查询分类
-     * @param type
-     * @return
-     */
+ /*   *
+  * 根据类型查询分类
+  * @param type
+  * @return*/
     @GetMapping("/list")
     @ApiOperation("根据类型查询分类")
     public Result<List<Category>> list(Integer type){
-        List<Category> list = categoryService.list(type);
+        List<Category> list = categoryService.listCategoryService(type);
         return Result.success(list);
     }
 

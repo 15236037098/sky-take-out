@@ -6,8 +6,11 @@ sky:
     database: sky
     username: root
     password: 123456
- # alioss:
-   # bucket-name: ${sky.alioss.bucket-name}
-    #endpoint: ${sky.alioss.endpoint}
-    #access-key-secret: ${sky.alioss.access-key-secret}
-    #access-key-id: ${sky.alioss.access-key-id}
+  alioss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: LTAI5tLuWUu2h8AaRd1uGQEe
+    access-key-secret: 3Y5VOmdzamWRbNukDfaKNq8GO6Y7ej
+    bucket-name: tiankong-waimai
+  wechat:
+    appid: wxc46b58ed217f2ad1
+    secret: f0326a24f2ebde0a529244be7eaf9eb2

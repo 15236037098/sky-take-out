@@ -9,12 +9,13 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface DishMapper {
     Page<Dish> pageQueryList(DishPageQueryDTO dishPageQueryDTO);
 
     @AutoFile(OperationType.INSERT)
-
     void insert(Dish dish);
 
     @Select("select status,id from dish where id=#{id}")
@@ -25,4 +26,9 @@ public interface DishMapper {
 
     @AutoFile(OperationType.UPDATE)
     void update(Dish dish);
+
+    List<Dish> listDishMapper(Dish dish);
+
+    @Select("select a.* from dish a left join setmeal_dish b on a.id=b.dish_id where b.setmeal_id=#{setmealId}")
+    List<Dish> getBySetmealId(Long setmealId);
 }
