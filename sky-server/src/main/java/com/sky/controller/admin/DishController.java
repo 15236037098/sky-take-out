@@ -11,9 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @Api("菜品管理")
@@ -23,7 +25,12 @@ public class DishController {
 
     @Autowired
     private DishService dishService;
-
+    @Autowired
+    private RedisTemplate redisTemplate;
+    private void  cleanCache(String patterrn){
+        Set keys=redisTemplate.keys(patterrn);
+        redisTemplate.delete(keys);
+    }
     @GetMapping("/page")
     @ApiOperation("菜品分页查询")
     public Result<PageResult> pageList(DishPageQueryDTO dishPageQueryDTO){
@@ -37,6 +44,10 @@ public class DishController {
     public Result<String> save(@RequestBody DishDTO dishDTO){
         log.info("新增菜品：{}", dishDTO);
         dishService.save(dishDTO);
+        //调用清理缓存方法，保证数据一致性
+        Long categoryId = dishDTO.getCategoryId();
+        String key="dish_"+categoryId;
+        cleanCache(key);
         return Result.success();
     }
 
@@ -45,6 +56,9 @@ public class DishController {
     public Result delete(@RequestParam List<Long> ids){
         log.info("菜品批量删除：{}", ids);
         dishService.deleteBatch(ids);
+
+        //删除所有菜品的缓存数据
+        cleanCache("dish_*");
         return Result.success();
     }
     @GetMapping("/{id}")
@@ -57,6 +71,8 @@ public class DishController {
     public Result update(@RequestBody DishDTO dishDTO){
         log.info("修改菜品：{}", dishDTO);
         dishService.updateWithFlavor(dishDTO);
+        //删除所有菜品的缓存数据
+        cleanCache("dish_*");
         return Result.success();
     }
 
@@ -65,6 +81,9 @@ public class DishController {
     public Result<String>  disableOrSrart(@PathVariable Integer status ,Long id){
         log.info("修改禁售起售：{}", status,id);
         dishService.disable(status,id);
+
+        //删除所有菜品的缓存数据
+        cleanCache("dish_*");
         return Result.success();
     }
     @GetMapping("/list")

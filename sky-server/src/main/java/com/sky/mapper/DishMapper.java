@@ -18,7 +18,7 @@ public interface DishMapper {
     @AutoFile(OperationType.INSERT)
     void insert(Dish dish);
 
-    @Select("select status,id from dish where id=#{id}")
+    @Select("select * from dish where id=#{id}")
     Dish getById(Long id);
 
     @Delete("delete from dish where id=#{id}")
