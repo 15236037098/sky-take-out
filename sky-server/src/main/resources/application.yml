@@ -46,3 +46,4 @@ sky:
   wechat:
     secret: ${sky.wechat.secret}
     appid: ${sky.wechat.appid}
+    mchid: ${sky.wechat.mchid}
